@@ -1,10 +1,16 @@
 import React from "react";
 import "./Download_img.css";
 import newimg from "./assets/new.png";
+import check from "./assets/check.png";
 
-const Download_img = (props) => {
+const Downloadimg = (props) => {
   return (
-    <div className="download_img_cont">
+    <div
+      className={
+        "download_img_cont " +
+        (props.top == "true" ? "download_img_cont_border" : "")
+      }
+    >
       <div
         className={
           "download_img_title " +
@@ -19,8 +25,13 @@ const Download_img = (props) => {
         <></>
       )}
       <div className="download_img_subtitle">{props.subtitle}</div>
+
+      <button className="download_btn">{props.btn_text}</button>
+
+      <img src={check} className="check_img" alt="" />
+      <div className="last_title">{props.last_title}</div>
     </div>
   );
 };
 
-export default Download_img;
+export default Downloadimg;
