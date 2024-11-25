@@ -39,6 +39,7 @@
   margin-top: 25px;
   height: 35px;
   border-radius: 25px;
+  cursor: pointer;
 }
 
 .last_title {
@@ -55,6 +56,6 @@
   right: 19px;
 }
 
-.download_img_cont_border{
+.download_img_cont_border {
   border-top: 1px solid gray;
 }

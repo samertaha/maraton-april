@@ -4,6 +4,10 @@ import newimg from "./assets/new.png";
 import check from "./assets/check.png";
 
 const Downloadimg = (props) => {
+  function show_popup_download() {
+    props.show_download_popup_func();
+  }
+
   return (
     <div
       className={
@@ -26,7 +30,9 @@ const Downloadimg = (props) => {
       )}
       <div className="download_img_subtitle">{props.subtitle}</div>
 
-      <button className="download_btn">{props.btn_text}</button>
+      <button className="download_btn" onClick={show_popup_download}>
+        {props.btn_text}
+      </button>
 
       <img src={check} className="check_img" alt="" />
       <div className="last_title">{props.last_title}</div>

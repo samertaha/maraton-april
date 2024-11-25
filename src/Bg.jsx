@@ -7,12 +7,31 @@ import banner from "./assets/banner.png";
 import Downloadimg from "./Downloadimg";
 import Nobg from "./Nobg";
 import Downloadpopup from "./Download_popup";
+import Eula from "./Eula";
 
 export const Bg = () => {
   const [selected_tab, setSelected_tab] = useState(true);
+  const [show_download_popup, setshow_download_popup] = useState(false);
+  const [show_eula_popup, setshow_eula_popup] = useState(false);
 
   function choose_tab() {
     setSelected_tab(!selected_tab);
+  }
+
+  function show_download_popup_func() {
+    setshow_download_popup(true);
+  }
+
+  function close_popup_func() {
+    setshow_download_popup(false);
+  }
+
+  function show_eula() {
+    setshow_eula_popup(true);
+  }
+
+  function close_eula_func() {
+    setshow_eula_popup(false);
   }
 
   return (
@@ -28,6 +47,7 @@ export const Bg = () => {
           <div className="right_div">
             <div className="right_div_inner">
               <Downloadimg
+                show_download_popup_func={show_download_popup_func}
                 title="תמונה חינם"
                 subtitle="תצוגה מקדימה של תמונה"
                 top="false"
@@ -69,7 +89,9 @@ export const Bg = () => {
             </div>
 
             <div className="left_div_footer">
-              <button className="takanon_btn">תקנון החברה</button>
+              <button className="takanon_btn" onClick={show_eula}>
+                תקנון החברה
+              </button>
               <div className="takanon_text">
                 על ידי העלאת תמונה אתה מסכים לתנאים וההגבלות שלנו. אתר זה מוגן
                 וחלים מדיניות ופרטיון.
@@ -82,7 +104,24 @@ export const Bg = () => {
           <img src={banner} className="footer_banner" alt="" />
         </div>
       </div>
-      <Downloadpopup></Downloadpopup>
+
+      {show_download_popup ? (
+        <>
+          <div className="layout"> </div>
+          <Downloadpopup close_popup_func={close_popup_func}> </Downloadpopup>
+        </>
+      ) : (
+        <></>
+      )}
+
+      {show_eula_popup ? (
+        <>
+          <div className="layout"> </div>
+          <Eula close_eula_func={close_eula_func}> </Eula>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
