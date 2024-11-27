@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Bg.css";
 import close_x from "./assets/close.png";
 import logo from "./assets/logo.png";
 import banner from "./assets/banner.png";
+import axios from "axios";
 
 import Downloadimg from "./Downloadimg";
 import Nobg from "./Nobg";
@@ -34,13 +35,51 @@ export const Bg = () => {
     setshow_eula_popup(false);
   }
 
+  const inputElement = useRef();
+
+  const focusInput = () => {
+    inputElement.current.click();
+  };
+
+  function uploaded_file(e) {
+    let url = "http://localhost:5000/upload_file";
+
+    let formData = new FormData();
+
+    formData.append("name", "ABC");
+    formData.append("age", "20");
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+
+    axios
+      .post(url, formData, config)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .cach((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <>
       <div className="bg_general">
         <img src={close_x} alt="close" className="close_img" />
         <div className="title">העלאת תמונה כדי להסיר את הרקע</div>
+        <input
+          type="file"
+          ref={inputElement}
+          className="input_file"
+          onChange={uploaded_file}
+        />
+        <button className="upload_btn" onClick={focusInput}>
+          העלאת תמונה
+        </button>
 
-        <button className="upload_btn">העלאת תמונה</button>
         <div className="upload_text">פורמטים נתמכים .png,.jpg,.jpeg</div>
 
         <div className="middle_div">
