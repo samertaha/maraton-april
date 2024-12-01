@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Bg.css";
 import close_x from "./assets/close.png";
 import logo from "./assets/logo.png";
@@ -18,6 +18,11 @@ export const Bg = () => {
   const [show_err_msg_size, setshow_err_msg_size] = useState(false);
   const [image_name, setimage_name] = useState("");
   const [bg_color, setbg_color] = useState("green");
+  const [show_loader, setshow_loader] = useState(false);
+
+  useEffect(() => {
+    setshow_loader(false);
+  }, [image_name]);
 
   function choose_tab() {
     setSelected_tab(!selected_tab);
@@ -46,6 +51,8 @@ export const Bg = () => {
   };
 
   function uploaded_file(e) {
+    setshow_loader(true);
+
     let file_info = e.target.files[0];
 
     let url = "http://localhost:5000/upload_file";
@@ -71,7 +78,6 @@ export const Bg = () => {
           .post(url, formData, config)
           .then((response) => {
             setimage_name(response.data);
-            console.log("here : " + image_name);
           })
           .catch((error) => {
             console.log(error);
@@ -200,9 +206,13 @@ export const Bg = () => {
         <></>
       )}
 
-      <div className="loader">
-        <div className="loader_in"></div>
-      </div>
+      {show_loader ? (
+        <div className="loader">
+          <div className="loader_in"> 39% </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
