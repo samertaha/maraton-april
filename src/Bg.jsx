@@ -14,6 +14,10 @@ export const Bg = () => {
   const [selected_tab, setSelected_tab] = useState(true);
   const [show_download_popup, setshow_download_popup] = useState(false);
   const [show_eula_popup, setshow_eula_popup] = useState(false);
+  const [show_err_msg, setshow_err_msg] = useState(false);
+  const [show_err_msg_size, setshow_err_msg_size] = useState(false);
+  const [image_name, setimage_name] = useState("");
+  const [bg_color, setbg_color] = useState("green");
 
   function choose_tab() {
     setSelected_tab(!selected_tab);
@@ -42,27 +46,46 @@ export const Bg = () => {
   };
 
   function uploaded_file(e) {
+    let file_info = e.target.files[0];
+
     let url = "http://localhost:5000/upload_file";
 
-    let formData = new FormData();
+    if (file_info.size <= 10000000) {
+      if (
+        file_info.type === "image/png" ||
+        file_info.type === "image/jpeg" ||
+        file_info.type === "image/jpg"
+      ) {
+        let formData = new FormData();
 
-    formData.append("name", "ABC");
-    formData.append("age", "20");
+        formData.append("file", file_info);
+        formData.append("color", bg_color);
 
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    };
+        const config = {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        };
 
-    axios
-      .post(url, formData, config)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .cach((error) => {
-        console.log(error);
-      });
+        axios
+          .post(url, formData, config)
+          .then((response) => {
+            setimage_name(response.data);
+            console.log("here : " + image_name);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        setshow_err_msg(true);
+      }
+    } else {
+      setshow_err_msg_size(true);
+    }
+  }
+
+  function save_color_func(color) {
+    setbg_color(color);
   }
 
   return (
@@ -81,6 +104,12 @@ export const Bg = () => {
         </button>
 
         <div className="upload_text">פורמטים נתמכים .png,.jpg,.jpeg</div>
+        {show_err_msg ? <div className="err_msg"> קובץ לא נתמך</div> : <></>}
+        {show_err_msg_size ? (
+          <div className="err_msg"> קובץ גדול מידי</div>
+        ) : (
+          <></>
+        )}
 
         <div className="middle_div">
           <div className="right_div">
@@ -121,9 +150,13 @@ export const Bg = () => {
 
             <div className="left_div_inner">
               {selected_tab ? (
-                <Nobg title="Nobg"></Nobg>
+                <Nobg
+                  save_color_func={save_color_func}
+                  img_name={image_name}
+                  title="Nobg"
+                ></Nobg>
               ) : (
-                <Nobg title="original"></Nobg>
+                <Nobg img_name={image_name} title="original"></Nobg>
               )}
             </div>
 
@@ -147,7 +180,12 @@ export const Bg = () => {
       {show_download_popup ? (
         <>
           <div className="layout"> </div>
-          <Downloadpopup close_popup_func={close_popup_func}> </Downloadpopup>
+          <Downloadpopup
+            img_name={image_name}
+            close_popup_func={close_popup_func}
+          >
+            {" "}
+          </Downloadpopup>
         </>
       ) : (
         <></>
@@ -161,6 +199,10 @@ export const Bg = () => {
       ) : (
         <></>
       )}
+
+      <div className="loader">
+        <div className="loader_in"></div>
+      </div>
     </>
   );
 };

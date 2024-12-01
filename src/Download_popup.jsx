@@ -7,6 +7,21 @@ const Downloadpopup = (props) => {
   function close_download_popup() {
     props.close_popup_func();
   }
+
+  function download_img() {
+    let no_bg_img = "no_bg_" + props.img_name;
+
+    fetch("http://localhost:5000/" + no_bg_img).then((response) => {
+      response.blob().then((blob) => {
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = no_bg_img;
+        a.click();
+      });
+    });
+  }
+
   return (
     <div className="Download_popup_cont">
       <div className="top_div"></div>
@@ -32,7 +47,9 @@ const Downloadpopup = (props) => {
         <button className="cancel_btn" onClick={close_download_popup}>
           ביטול
         </button>
-        <button className="approve_btn">אישור</button>
+        <button className="approve_btn" onClick={download_img}>
+          אישור
+        </button>
       </div>
     </div>
   );
