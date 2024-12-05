@@ -1,5 +1,3 @@
-# mern stack image background remover
-
 # Background Remover
 
 A powerful and user-friendly web application built with React.js and Node.js/Express.js to effortlessly remove image backgrounds.

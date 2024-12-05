@@ -3,6 +3,11 @@ const axios = require("axios");
 const FormData = require("form-data");
 const fs = require("fs");
 const path = require("path");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const apiKey = process.env.apikey;
 
 module.exports = async function send_to_api(file_path, file_name, color) {
   const inputPath = file_path;
@@ -22,7 +27,7 @@ module.exports = async function send_to_api(file_path, file_name, color) {
     responseType: "arraybuffer",
     headers: {
       ...formData.getHeaders(),
-      "X-Api-Key": "nqVuDnoeS1MYpdaQdEh3d8zA",
+      "X-Api-Key": apiKey,
     },
     encoding: null,
   })
