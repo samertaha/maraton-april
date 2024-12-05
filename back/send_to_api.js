@@ -4,7 +4,7 @@ const FormData = require("form-data");
 const fs = require("fs");
 const path = require("path");
 
-module.exports = function send_to_api(file_path, file_name) {
+module.exports = async function send_to_api(file_path, file_name, color) {
   const inputPath = file_path;
   const formData = new FormData();
   formData.append("size", "auto");
@@ -13,8 +13,9 @@ module.exports = function send_to_api(file_path, file_name) {
     fs.createReadStream(inputPath),
     path.basename(inputPath)
   );
+  formData.append("bg_color", color);
 
-  axios({
+  await axios({
     method: "post",
     url: "https://api.remove.bg/v1.0/removebg",
     data: formData,
@@ -30,7 +31,10 @@ module.exports = function send_to_api(file_path, file_name) {
         return console.error("Error:", response.status, response.statusText);
       }
       console.log("reached!");
-      fs.writeFileSync(__dirname + "/no_bg_img/" + file_name, response.data);
+      fs.writeFileSync(
+        __dirname + "/no_bg_img/no_bg_" + file_name,
+        response.data
+      );
     })
     .catch((error) => {
       return console.error("Request failed:", error);
