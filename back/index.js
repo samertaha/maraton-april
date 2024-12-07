@@ -3,7 +3,6 @@ const app = express();
 const cors = require("cors");
 const fileupload = require("express-fileupload");
 const send_to_api = require("./send_to_api");
-require("dotenv").config();
 
 app.use(cors());
 app.use(fileupload());
