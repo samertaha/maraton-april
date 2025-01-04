@@ -27,3 +27,42 @@ A powerful and user-friendly web application built with React.js and Node.js/Exp
    ```bash
    git clone [https://github.com/your-username/background-remover.git](https://github.com/your-username/background-remover.git)
    ```
+2. cd to the project main folder and npm install then npm start
+3. cd back then: node start index.js
+4. cd .. to the main app folder
+5. create .env file and put "apikey=xxxxxxxxxxxxx" "get your own free remove.bg api key"
+6. npm install 7. npm start 8. open browser and go to localhost:3000
+
+## Deployment:
+
+1. **Create a Production Build:**
+   ```bash
+   npm run build
+   ```
+2. **Deploy to Server:**
+   ```bash
+   npm run deploy
+   ```
+
+## License:
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Output:
+
+# :he: רקע מסרק
+
+**הסבר בעברית:**
+יישום אינטרנט עוצמתי וידידותי למשתמש בנוי עם React.js ו-Node.js / Express.js להסרת רקע תמונות בקלות.
+
+## תכונות:
+
+- **הסרת רקע ללא מאמץ:** העלה את התמונה שלך ותן לקסם לקרות!
+- **רקעים מותאמים אישית:** בחר ממגוון רחב של צבעי רקע צבע מוחלט או בחר ברקע שקוף.
+- **חווית משתמש חלקה:** תהנה מממשק חלק ואינטואיטיבי.
+
+## איך זה עובד:
+
+1. **העלה תמונה:** בחר תמונה מהמכשיר שלך או ספק URL.
+2. **עיבוד תמונה:** היישום שולח את התמונה ל-Remove.bg API להסרת רקע.
+3. \*\*התאמת ר
