@@ -50,7 +50,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Output:
 
-# :he: רקע מסרק
+# :he: רקע הסרת
 
 **הסבר בעברית:**
 יישום אינטרנט עוצמתי וידידותי למשתמש בנוי עם React.js ו-Node.js / Express.js להסרת רקע תמונות בקלות.
